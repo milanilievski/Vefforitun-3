@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<meta charset="utf-8">
+	<style type="text/css">
+		input {
+			border: none;
+			border-bottom: 2px solid #D3D3D3;
+		}
+
+		input:focus {
+			outline: none;
+			border-bottom: 2px solid #FF6347;
+		}
+
+		#blackInput {
+			position: fixed;
+			padding-top: 40px;
+			margin-left: -160px;
+			text-decoration: none;
+			color: black;
+		}
+
+		#redInput {
+			position: fixed;
+			padding-top: 40px;
+			margin-left: -160px;
+			text-decoration: none;
+			color: #FF6347;
+		}
+	</style>
+</head>
+<body>
+	<div id="app">
+		<input type="text" v-model="inputText">
+		<a id="blackInput" v-bind:href="'https://www.google.is/search?q='+ inputText">Leit</a>
+		<a id="redInput" v-if="inputText" v-bind:href="'https://www.google.is/search?q='+ inputText">Leit</a>
+	</div>
+
+	<script src="https://unpkg.com/vue"></script>
+	<script type="text/javascript">
+		var app = new Vue({
+			el: "#app",
+			data: () => ({
+  				inputText: '',
+			})
+		});
+	</script>
+</body>
+</html>
