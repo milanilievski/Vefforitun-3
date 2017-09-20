@@ -1,19 +1,18 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="utf-8">
-	<title></tile>
+	<title></title>
 </head>
 <body>
+	<style type="text/css">
+		a {
+			display: block;
+		}
+	</style>
+
 	<div id="app">
-		<input type="text" v-model="task">
-		<button @click="addTask">Create Task</button>
-		<ul>
-			<li v-for="item in tasks" v-text="item"></li>
-		</ul>
+		<a v-for="items in anchors" :href="items" v-text="items"></a>
 	</div>
-
-
 
 
 	<script src="https://unpkg.com/vue"></script>
@@ -21,8 +20,12 @@
 		var app = new Vue({
 			el: "#app",
 			data: {
-				tasks: [],
-				task: ''
+				anchors: [
+					'https://google.is',
+					'http://visir.is',
+					'http://fotbolti.net',
+					'https://facebook.com'
+				]
 			},
 
 			methods: {
@@ -30,8 +33,6 @@
 					this.tasks.push(this.task)
 				this.task = '';
 				}
-
-
 			}
 		});
 	</script>
