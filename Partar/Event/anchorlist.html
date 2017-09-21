@@ -11,7 +11,8 @@
 	</style>
 
 	<div id="app">
-		<a v-for="items in anchors" :href="items" v-text="items"></a>
+		<a v-for="items in anchors" :href="items" v-text="items.items" @click.prevent="handleClick(items)"></a>
+		<p >Virkur linkur er: {{ activeLink }}</p>
 	</div>
 
 
@@ -20,18 +21,21 @@
 		var app = new Vue({
 			el: "#app",
 			data: {
+
 				anchors: [
-					'https://google.is',
-					'http://visir.is',
-					'http://fotbolti.net',
-					'https://facebook.com'
-				]
+					{ items: 'https://google.is' },
+					{ items: 'http://visir.is' },
+					{ items: 'http://fotbolti.net' },
+					{ items: 'https://facebook.com' }
+				],
+
+				activeLink: ""
+
 			},
 
 			methods: {
-				addTask: function() {
-					this.tasks.push(this.task)
-				this.task = '';
+				handleClick: function(items) {
+					this.activeLink = items.items;
 				}
 			}
 		});
