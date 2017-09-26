@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+	<div id='app'>
+		<p>
+			Original message: {{ message }}
+		</p>
+		<p>
+			Reversed message: {{ reversedMessage }} 
+		</p>
+	</div>
+
+	<script src="https://unpkg.com/vue"></script>
+	<script type="text/javascript">
+		var app = new Vue({
+			el: "#app",
+			data: {
+				message: 'Halló Heimur'
+
+			},
+
+			computed: {
+				reversedMessage: function() {
+					return this.message.split('').reverse().join('');
+				}
+			}
+		})
+	</script>
+</body>
+</html>
