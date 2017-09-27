@@ -93,32 +93,33 @@
 				width: 80px;
 			}
 		}
+
+		.list li.done label {
+			color: #d9d9d9;
+			text-decoration: line-through; 
+		}
 	</style>
 </head>
 <body>
 	<div class="container" id='todo'>
 		<section class="panel">
-			<input type="checkbox" id="mark-all">
-			<input type="text" placeholder="What do you need to do?" autofocus class="text-input">
-			<button>Clear List</button>
+			<input type="checkbox" id="mark-all" v-bind:checked="areAllSelected" v-on:click="selectAll">
+			<input type="text" placeholder="What do you need to do?" autofocus class="text-input" v-model="newTask" v-on:keyup.enter="addTask">
+			<button v-on:click="clearList">Clear List</button>
 			
-
-			<input type="text" v-model="value">
-			<br>
-			<p>{{value}}</p>
-			<pre>{{$data}}</pre>
 		</section>
 
 		<ul class="list">
-			<li>
-				<input type="checkbox" class="checkbox">
-				<input type="text" class="text-input">
-				<label for="checkbox" ></label>
-				<button class="delete"></button>
+			<li v-for="task in taskList" v-bind:class="{done: task.checked}">
+				<input type="checkbox" class="checkbox" v-model="task.checked">
+				<label for="checkbox" >{{ task.text }}</label>
+				<button class="delete" v-on:click="removeTask(task)">X</button>
 			</li>
 		</ul>
 
-
+		<br>
+		<p>{{value}}</p>
+		<pre>{{$data}}</pre>
 	</div>
 
 	<script src="https://unpkg.com/vue"></script>
@@ -126,11 +127,47 @@
 		var app = new Vue({
 			el: "#todo",
 			data: {
-				value: ""
+				newTask: "",
+				taskList: []
 			},
 
 			methods: {
+				addTask: function() {
+					var task = this.newTask.trim();
 
+					if (task) {
+						this.taskList.push({
+							text: task,
+							checked: false
+						});
+
+						this.newTask = "";
+					}
+				},
+
+				removeTask: function(task) {
+					var index = this.taskList.indexOf(task);
+					this.taskList.splice(index, 1);
+				},
+
+				clearList: function() {
+					this.taskList = [];
+				},
+
+				selectAll: function(task) {
+					var targetValue = this.areAllSelected ? false : true;
+
+					for (var i = 0; i < this.taskList.length; i++) {
+						this.taskList[i].checked = targetValue;					}
+				}
+			},
+
+			computed: {
+				areAllSelected: function() {
+					return this.taskList.every(function(task) {
+						return task.checked;
+					}) && this.taskList.length > 0;
+				},
 			}
 		})
 	</script>
