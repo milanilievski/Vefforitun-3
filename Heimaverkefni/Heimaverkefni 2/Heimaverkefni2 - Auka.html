@@ -98,6 +98,8 @@
 			color: #d9d9d9;
 			text-decoration: line-through; 
 		}
+
+
 	</style>
 </head>
 <body>
@@ -112,7 +114,7 @@
 		<ul class="list">
 			<li v-for="task in taskList" v-bind:class="{done: task.checked}">
 				<input type="checkbox" class="checkbox" v-model="task.checked">
-				<label for="checkbox" >{{ task.text }}</label>
+				<input type="text" class="edit" v-if="click"><label for="checkbox" v-on:click="editTask">{{ task.text }}</label>
 				<button class="delete" v-on:click="removeTask(task)">X</button>
 			</li>
 		</ul>
@@ -159,6 +161,10 @@
 
 					for (var i = 0; i < this.taskList.length; i++) {
 						this.taskList[i].checked = targetValue;					}
+				},
+
+				editTask: function() {
+
 				}
 			},
 
